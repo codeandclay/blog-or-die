@@ -32,15 +32,13 @@ class CCBlogOrDie {
 	}
 
 	private static function time_of_latest_post_in_seconds() {
-		// It is not gauranteed that the first item returned by get_posts() is the
-		// latest post. So here I compare the timestamps of all posts.
-		$times = array_map(
-			function( $post ) {
-				return $post->post_date;
-			}, get_posts( array( 'numberposts' => -1 ) )
-		);
-		sort( $times );
-		return end( $times );
+		return get_posts(
+			array(
+				'orderby'        => 'date',
+				'order'          => 'DESC',
+				'posts_per_page' => 1,
+			)
+		)[0]->post_date;
 	}
 
 	private static function death_notice() {
