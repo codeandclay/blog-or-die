@@ -19,11 +19,19 @@ function cc_prevent_page_load() {
 }
 
 function cc_is_last_post_older_than( $seconds ) {
-	return cc_age_of_post_in_seconds() > $seconds;
+	return cc_time_of_latest_post_in_seconds() > $seconds;
 }
 
-function cc_age_of_post_in_seconds() {
-	return current_time( 'timestamp' ) - strtotime( get_posts()[0]->post_date );
+function cc_time_of_latest_post_in_seconds() {
+	// It is not gauranteed that the first item returned by get_posts() is the
+	// latest post. So here I compare the timestamps of all posts.
+	$times = array_map(
+		function( $post ) {
+			return $post->post_date;
+		}, get_posts()
+	);
+	sort( $times );
+	return end( $times );
 }
 
 function cc_death_notice() {
