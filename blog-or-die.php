@@ -32,13 +32,15 @@ class CCBlogOrDie {
 	}
 
 	private static function time_of_latest_post_in_seconds() {
-		return get_posts(
-			array(
-				'orderby'        => 'date',
-				'order'          => 'DESC',
-				'posts_per_page' => 1,
-			)
-		)[0]->post_date;
+		return strtotime(
+			get_posts(
+				array(
+					'orderby'        => 'date',
+					'order'          => 'DESC',
+					'posts_per_page' => 1,
+				)
+			)[0]->post_date
+		);
 	}
 
 	private static function death_notice() {
