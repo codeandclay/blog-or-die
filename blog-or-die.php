@@ -24,7 +24,7 @@ class CCBlogOrDie {
 	}
 
 	private static function is_last_post_older_than( $seconds ) {
-		return self::time_of_latest_post_in_seconds() > $seconds;
+		return current_time( 'timestamp' ) - self::time_of_latest_post_in_seconds() > $seconds;
 	}
 
 	private static function time_limit_in_seconds() {
