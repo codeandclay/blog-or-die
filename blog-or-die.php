@@ -37,7 +37,7 @@ class CCBlogOrDie {
 		$times = array_map(
 			function( $post ) {
 				return $post->post_date;
-			}, get_posts()
+			}, get_posts( array( 'numberposts' => -1 ) )
 		);
 		sort( $times );
 		return end( $times );
