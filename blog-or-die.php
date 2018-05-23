@@ -13,7 +13,17 @@ Author URI: www.codeandclay.com
 */
 
 function cc_prevent_page_load() {
-	cc_death_notice();
+	if ( cc_is_last_post_older_than( 10 ) ) {
+		cc_death_notice();
+	}
+}
+
+function cc_is_last_post_older_than( $seconds ) {
+	return cc_age_of_post_in_seconds() > $seconds;
+}
+
+function cc_age_of_post_in_seconds() {
+	return current_time( 'timestamp' ) - strtotime( get_posts()[0]->post_date );
 }
 
 function cc_death_notice() {
