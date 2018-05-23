@@ -15,6 +15,7 @@ Author URI: www.codeandclay.com
 class CCBlogOrDie {
 	public static function init() {
 		add_action( 'template_redirect', array( __CLASS__, 'prevent_page_load' ) );
+		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
 	}
 
 	public static function prevent_page_load() {
@@ -45,6 +46,22 @@ class CCBlogOrDie {
 
 	private static function death_notice() {
 		die( '<h1>Your blog is dead</h1>' );
+	}
+
+	/*
+	Back end
+	*/
+
+	public static function add_menu() {
+		add_options_page( 'Blog or Die Settings', 'Blog or Die', 'edit_pages', 'blog_or_die_settings', array( __CLASS__, 'render_settings_page' ), false, 62 );
+	}
+
+	public static function render_settings_page() {
+		?>
+		<div class="wrap">
+			<h1>Blog or Die</h1>
+		</div>
+		<?php
 	}
 }
 
