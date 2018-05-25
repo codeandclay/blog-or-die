@@ -56,11 +56,51 @@ class CCBlogOrDie {
 		add_options_page( 'Blog or Die Settings', 'Blog or Die', 'edit_pages', 'blog_or_die_settings', array( __CLASS__, 'render_settings_page' ), false, 62 );
 	}
 
+	public static function timeframes() {
+		return array(
+			'day'          => 1,
+			'two days'     => 2,
+			'three days'   => 3,
+			'four days'    => 4,
+			'five days'    => 5,
+			'six days'     => 6,
+			'week'         => 7,
+			'two weeks'    => 8,
+			'three weeks'  => 9,
+			'month'        => 10,
+			'two months'   => 11,
+			'three months' => 12,
+			'six months'   => 13,
+			'year'         => 14,
+		);
+	}
+
 	public static function render_settings_page() {
 		?>
 		<div class="wrap">
-			<h1>Blog or Die</h1>
+			<h1>Blog or Die Settings</h1>
+			<form action="" name="timelimit">
+				<p>I need to publish at least one post every
+					<select id="quantity" name="quantity">
+					</select>
+				or my blog gets it.</p>
+				<p class="description">Once set, this cannot be changed until you have published your next post.</p>
+				<?php
+					submit_button( $text = 'Start the clock', $type = 'action', $name = 'jeopardy_submit', $wrap = true, $other_attributes = array( 'id' => 'jeopardy_submit' ) );
+				?>
+			</form>
+
 		</div>
+		<script>
+			jQuery(function(){
+				var timeframes = <?php echo( json_encode( self::timeframes() ) ); ?>;
+				for(var key in timeframes) {
+					jQuery("#quantity").append(jQuery('<option></option>')
+									   .val(timeframes[key])
+									   .html(key))
+				};
+			})
+		</script>
 		<?php
 	}
 }
