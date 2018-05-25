@@ -16,6 +16,7 @@ class CCBlogOrDie {
 	public static function init() {
 		add_action( 'template_redirect', array( __CLASS__, 'prevent_page_load' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
+		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 	}
 
 	public static function prevent_page_load() {
@@ -54,6 +55,10 @@ class CCBlogOrDie {
 
 	public static function add_menu() {
 		add_options_page( 'Blog or Die Settings', 'Blog or Die', 'edit_pages', 'blog_or_die_settings', array( __CLASS__, 'render_settings_page' ), false, 62 );
+	}
+
+	public static function register_settings() {
+		register_setting( 'cc_blog_or_die', 'cc_timeframes' );
 	}
 
 	public static function timeframes() {
