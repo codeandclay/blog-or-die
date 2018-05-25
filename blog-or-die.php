@@ -13,7 +13,7 @@ Author URI: www.codeandclay.com
 */
 
 class CCBlogOrDie {
-	public static function init() {
+	public static function run() {
 		add_action( 'template_redirect', array( __CLASS__, 'prevent_page_load' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
@@ -110,4 +110,4 @@ class CCBlogOrDie {
 	}
 }
 
-CCBlogOrDie::init();
+CCBlogOrDie::run();
