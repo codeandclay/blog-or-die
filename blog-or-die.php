@@ -63,44 +63,69 @@ class CCBlogOrDie {
 
 	public static function timeframes() {
 		return array(
-			'day'          => 1,
-			'two days'     => 2,
-			'three days'   => 3,
-			'four days'    => 4,
-			'five days'    => 5,
-			'six days'     => 6,
-			'week'         => 7,
-			'two weeks'    => 8,
-			'three weeks'  => 9,
-			'month'        => 10,
-			'two months'   => 11,
-			'three months' => 12,
-			'six months'   => 13,
-			'year'         => 14,
+			'a day'        => 'day_1',
+			'two days'     => 'day_2',
+			'three days'   => 'day_3',
+			'four days'    => 'day_4',
+			'five days'    => 'day_5',
+			'six days'     => 'day_6',
+			'a week'       => 'week_1',
+			'two weeks'    => 'week_2',
+			'three weeks'  => 'week_3',
+			'month'        => 'month_1',
+			'two months'   => 'month_2',
+			'three months' => 'month_3',
+			'six months'   => 'month_6',
+			'a year'       => 'month_12',
 		);
+	}
+
+	private static function time_args( $str ) {
+		if ( ! self::validate_method( $str ) ) {
+			trigger_error( 'String cannot be used to call method.' );
+			return false;
+		}
+		return explode( $str );
 	}
 
 	public static function render_settings_page() {
 		?>
 		<div class="wrap">
 			<h1>Blog or Die Settings</h1>
-			<form action="" name="timelimit">
-				<p>I need to publish at least one post every
-					<select id="quantity" name="quantity">
-					</select>
-				or my blog gets it.</p>
-				<p class="description">Once set, this cannot be changed until you have published your next post.</p>
-				<?php
-					submit_button( $text = 'Start the clock', $type = 'action', $name = 'jeopardy_submit', $wrap = true, $other_attributes = array( 'id' => 'jeopardy_submit' ) );
-				?>
-			</form>
 
+			<form action="" action="options.php">
+				<?php settings_fields( 'cc_blog_or_die' ); ?>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet cumque, iusto animi consequatur. Consequatur quaerat, quod magnam. Inventore qui voluptas maiores explicabo nesciunt, dolor ipsum, eos eum veniam labore distinctio recusandae sed ex obcaecati perspiciatis nemo cumque in quam. Eligendi.</p>
+				<table class="form-table">
+					<tr>
+						<th scope="row">
+							<label for="interval">Interval between posts</label>
+						</th>
+						<td>
+							I need to ensure I leave no more than
+							<select id="duration">
+							</select>
+							between published posts or my blog gets it.
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							Text to display when dead
+						</th>
+						<td>
+							<textarea type="text" rows="5" cols="50" class="large-text">I have failed to meet my own expectations and I should be ashamed of myself.</textarea>
+							<p class="description">This is the text that will be displayed when your blog is dead.</p>
+						</td>
+					</tr>
+				</table>
+				<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
+			</form>
 		</div>
 		<script>
 			jQuery(function(){
 				var timeframes = <?php echo( json_encode( self::timeframes() ) ); ?>;
 				for(var key in timeframes) {
-					jQuery("#quantity").append(jQuery('<option></option>')
+					jQuery("#duration").append(jQuery('<option></option>')
 									   .val(timeframes[key])
 									   .html(key))
 				};
