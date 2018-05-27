@@ -59,6 +59,7 @@ class CCBlogOrDie {
 
 	public static function register_settings() {
 		register_setting( 'cc_blog_or_die', 'cc_timeframes' );
+		register_setting( 'cc_blog_or_die', 'cc_death_notice' );
 	}
 
 	public static function timeframes() {
