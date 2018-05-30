@@ -90,49 +90,62 @@ class CCBlogOrDie {
 	}
 
 	public static function render_settings_page() {
+
+		add_settings_section(
+			'blog_or_die_settings_section', // ID
+			'', // Title
+			'', // Callback
+			'blog_or_die_settings' // Page
+		);
+
+		add_settings_field(
+			'cc_timeframe', // ID
+			'Interval between posts', // Title
+			array( __CLASS__, 'timeframe_view' ), // Callback
+			'blog_or_die_settings', // Page
+			'blog_or_die_settings_section' // Section
+		);
+
+		add_settings_field(
+			'cc_death_notice', // ID
+			'Death notice', // Title
+			array( __CLASS__, 'death_notice_view' ), // Callback
+			'blog_or_die_settings', // Page
+			'blog_or_die_settings_section' // Section
+		);
+
 		?>
 		<div class="wrap">
 			<h1>Blog or Die Settings</h1>
 
-			<form action="" action="options.php">
-				<?php settings_fields( 'cc_blog_or_die' ); ?>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet cumque, iusto animi consequatur. Consequatur quaerat, quod magnam. Inventore qui voluptas maiores explicabo nesciunt, dolor ipsum, eos eum veniam labore distinctio recusandae sed ex obcaecati perspiciatis nemo cumque in quam. Eligendi.</p>
-				<table class="form-table">
-					<tr>
-						<th scope="row">
-							<label for="interval">Interval between posts</label>
-						</th>
-						<td>
-							I need to ensure I leave no more than
-							<select id="duration">
-							</select>
-							between published posts or my blog gets it.
-						</td>
-					</tr>
-					<tr>
-						<th scope="row">
-							Text to display when dead
-						</th>
-						<td>
-							<textarea type="text" rows="5" cols="50" class="large-text">I have failed to meet my own expectations and I should be ashamed of myself.</textarea>
-							<p class="description">This is the text that will be displayed when your blog is dead.</p>
-						</td>
-					</tr>
-				</table>
-				<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
+			<form method="POST" action="options.php">
+				<?php
+					settings_fields( 'cc_blog_or_die' );
+					do_settings_sections( 'blog_or_die_settings' );
+					submit_button();
+				?>
 			</form>
 		</div>
-		<script>
-			jQuery(function(){
-				var timeframes = <?php echo( json_encode( self::timeframes() ) ); ?>;
-				for(var key in timeframes) {
-					jQuery("#duration").append(jQuery('<option></option>')
-									   .val(timeframes[key])
-									   .html(key))
-				};
-			})
-		</script>
 		<?php
+	}
+
+	public static function timeframe_view() {
+		echo( 'I need to ensure I leave no more than ' );
+		echo( '<select id="duration" name="cc_timeframe">' );
+		foreach ( self::timeframes() as $key => $value ) {
+			echo( '<option value="' . $value . '">' . $key . '</option>' );
+		}
+		echo( '</select>' );
+		echo( ' between published posts or my blog gets it.' );
+	}
+
+	public static function death_notice_view() {
+		ob_start();
+		?>
+		<textarea type="text" rows="5" cols="50" name="cc_death_notice" class="large-text">I have failed to meet my own expectations and I should be ashamed of myself.</textarea>
+		<p class="description">This is the text that will be displayed when your blog is dead.</p>
+		<?php
+		echo( ob_get_clean() );
 	}
 }
 
