@@ -145,8 +145,12 @@ class CCBlogOrDie {
 
 	public static function death_notice_view() {
 		ob_start();
+		$text = 'I have failed to meet my own expectations and I should be ashamed of myself.';
+		if ( ! empty( get_option( 'cc_death_notice' ) ) ) {
+			$text = get_option( 'cc_death_notice' );
+		}
 		?>
-		<textarea type="text" rows="5" cols="50" name="cc_death_notice" class="large-text">I have failed to meet my own expectations and I should be ashamed of myself.</textarea>
+		<textarea type="text" rows="5" cols="50" name="cc_death_notice" class="large-text"><?php echo( $text ); ?></textarea>
 		<p class="description">This is the text that will be displayed when your blog is dead.</p>
 		<?php
 		echo( ob_get_clean() );
