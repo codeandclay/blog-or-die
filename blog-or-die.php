@@ -133,7 +133,11 @@ class CCBlogOrDie {
 		echo( 'I need to ensure I leave no more than ' );
 		echo( '<select id="duration" name="cc_timeframe">' );
 		foreach ( self::timeframes() as $key => $value ) {
-			echo( '<option value="' . $value . '">' . $key . '</option>' );
+			$selected_attr = '';
+			if ( $value == get_option( 'cc_timeframe' ) ) {
+				$selected_attr = 'selected';
+			}
+			echo( '<option value="' . $value . '" ' . $selected_attr . '>' . $key . '</option>' );
 		}
 		echo( '</select>' );
 		echo( ' between published posts or my blog gets it.' );
