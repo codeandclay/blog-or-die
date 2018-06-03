@@ -58,7 +58,7 @@ class CCBlogOrDie {
 	}
 
 	public static function register_settings() {
-		register_setting( 'cc_blog_or_die', 'cc_timeframe' );
+		register_setting( 'cc_blog_or_die', 'cc_interval' );
 		register_setting( 'cc_blog_or_die', 'cc_death_notice' );
 		register_setting(
 			'cc_blog_or_die', 'cc_date_from', array(
@@ -67,7 +67,7 @@ class CCBlogOrDie {
 		);
 	}
 
-	public static function timeframes() {
+	public static function intervals() {
 		return array(
 			'a day'        => 'day_1',
 			'two days'     => 'day_2',
@@ -108,9 +108,9 @@ class CCBlogOrDie {
 		);
 
 		add_settings_field(
-			'cc_timeframe', // ID
+			'cc_interval', // ID
 			'Interval between posts', // Title
-			array( __CLASS__, 'timeframe_view' ), // Callback
+			array( __CLASS__, 'interval_view' ), // Callback
 			'blog_or_die_settings', // Page
 			'blog_or_die_settings_section' // Section
 		);
@@ -139,14 +139,15 @@ class CCBlogOrDie {
 			</form>
 		</div>
 		<?php
+		echo( 'The date was: ' . get_option( 'cc_date_from' ) );
 	}
 
-	public static function timeframe_view() {
+	public static function interval_view() {
 		echo( 'I need to ensure I leave no more than ' );
-		echo( '<select id="duration" name="cc_timeframe">' );
-		foreach ( self::timeframes() as $key => $value ) {
+		echo( '<select id="duration" name="cc_interval">' );
+		foreach ( self::intervals() as $key => $value ) {
 			$selected_attr = '';
-			if ( $value == get_option( 'cc_timeframe' ) ) {
+			if ( $value == get_option( 'cc_interval' ) ) {
 				$selected_attr = 'selected';
 			}
 			echo( '<option value="' . $value . '" ' . $selected_attr . '>' . $key . '</option>' );
