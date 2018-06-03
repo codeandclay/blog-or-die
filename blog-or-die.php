@@ -169,4 +169,11 @@ class CCBlogOrDie {
 	}
 }
 
+register_deactivation_hook( __FILE__, 'blog_or_die_deactivate' );
+
+function blog_or_die_deactivate() {
+	// Clean up here.
+	// Deactivate any scheduled tasks
+}
+
 CCBlogOrDie::run();
