@@ -20,6 +20,9 @@ class CCBlogOrDie {
 	}
 
 	public static function prevent_page_load() {
+		if ( ! get_posts() ) {
+			return;
+		}
 		if ( self::is_last_post_older_than( self::time_limit_in_seconds() ) ) {
 			self::death_notice();
 		}
