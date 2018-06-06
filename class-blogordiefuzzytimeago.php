@@ -10,7 +10,7 @@ class BlogOrDieFuzzyTimeAgo {
 	}
 
 	public function description() {
-		$periods        = array_filter( array_reverse( $this->elapsed_time_periods() ) );
+		$periods        = array_filter( $this->elapsed_time_periods() );
 		$longest_period = array_slice( $periods, 0, 1 );
 
 		// I prefer: 'a day' over '1 days'
@@ -23,11 +23,11 @@ class BlogOrDieFuzzyTimeAgo {
 
 	private function periods() {
 		return [
-			'seconds',
-			'minutes',
-			'hours',
-			'days',
 			'years',
+			'days',
+			'hours',
+			'minutes',
+			'seconds',
 		];
 	}
 
@@ -35,7 +35,7 @@ class BlogOrDieFuzzyTimeAgo {
 		$now  = new DateTime();
 		$then = new DateTime( "@$this->reference_timestamp" );
 
-		$difference = $now->diff( $then )->format( '%s,%i,%h,%a,%y' );
+		$difference = $now->diff( $then )->format( '%y,%a,%h,%i,%s' );
 		return array_combine( $this->periods(), explode( ',', $difference ) );
 	}
 }
