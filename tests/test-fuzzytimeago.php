@@ -36,6 +36,18 @@ class FuzzyTimeAgoTest extends WP_UnitTestCase {
 		$this->assertSame( $subject->description(), 'over 10 minutes ago' );
 	}
 
+	public function test_over_an_hour() {
+		// initialize object with an hour
+		$subject = $this->subject( - ( 60 * 60 ) );
+		$this->assertSame( $subject->description(), 'over an hour ago' );
+	}
+
+	public function test_over_multiple_hours() {
+		// initialize object with ten hours
+		$subject = $this->subject( - ( 60 * 60 * 10 ) );
+		$this->assertSame( $subject->description(), 'over 10 hours ago' );
+	}
+
 	public function test_over_one_day() {
 		// initialize object with a day and one second
 		$subject = $this->subject( - ( 60 * 60 * 24 ) );

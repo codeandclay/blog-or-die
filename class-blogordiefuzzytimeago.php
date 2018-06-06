@@ -18,7 +18,8 @@ class BlogOrDieFuzzyTimeAgo {
 			$longest_period = [ substr( key( $longest_period ), 0, -1 ) => 'a' ];
 		}
 
-		return 'over ' . reset( $longest_period ) . ' ' . key( $longest_period ) . ' ago';
+		$str = 'over ' . reset( $longest_period ) . ' ' . key( $longest_period ) . ' ago';
+		return str_replace( 'a hour', 'an hour', $str );
 	}
 
 	private function periods() {
