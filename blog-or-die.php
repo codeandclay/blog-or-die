@@ -49,7 +49,10 @@ class CCBlogOrDie {
 	}
 
 	private static function death_notice() {
-		die( '<h1>Your blog is dead</h1>' );
+		if ( get_option ( 'cc_death_notice' ) ) {
+			die( '<h1>' . get_option( 'cc_death_notice' ) . '</h1>' );
+		}
+		die( '<h1>This blog is temporarily dead.</h1>' );
 	}
 
 	/*
