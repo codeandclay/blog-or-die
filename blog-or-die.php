@@ -23,17 +23,14 @@ class CCBlogOrDie {
 		if ( ! get_posts() ) {
 			return;
 		}
-		if ( self::is_last_post_older_than( self::time_limit_in_seconds() ) ) {
+		if ( self::was_last_post_published_after_deadline() ) {
 			self::death_notice();
 		}
 	}
 
-	private static function is_last_post_older_than( $seconds ) {
-		return current_time( 'timestamp' ) - self::time_of_latest_post_in_seconds() > $seconds;
-	}
-
-	private static function time_limit_in_seconds() {
-		return 10;
+	private static function was_last_post_published_after_deadline() {
+		$deadline = strtotime( '+' . get_option( 'cc_interval' ), get_option( 'cc_date_from' ) );
+		return $deadline - self::time_of_latest_post_in_seconds() < 0;
 	}
 
 	private static function time_of_latest_post_in_seconds() {
@@ -49,7 +46,7 @@ class CCBlogOrDie {
 	}
 
 	private static function death_notice() {
-		if ( get_option ( 'cc_death_notice' ) ) {
+		if ( get_option( 'cc_death_notice' ) ) {
 			die( '<h1>' . get_option( 'cc_death_notice' ) . '</h1>' );
 		}
 		die( '<h1>This blog is temporarily dead.</h1>' );
@@ -75,20 +72,20 @@ class CCBlogOrDie {
 
 	public static function intervals() {
 		return array(
-			'a day'        => 'day_1',
-			'two days'     => 'day_2',
-			'three days'   => 'day_3',
-			'four days'    => 'day_4',
-			'five days'    => 'day_5',
-			'six days'     => 'day_6',
-			'a week'       => 'week_1',
-			'two weeks'    => 'week_2',
-			'three weeks'  => 'week_3',
-			'month'        => 'month_1',
-			'two months'   => 'month_2',
-			'three months' => 'month_3',
-			'six months'   => 'month_6',
-			'a year'       => 'month_12',
+			'a day'        => '1 days',
+			'two days'     => '2 days',
+			'three days'   => '3 days',
+			'four days'    => '4 days',
+			'five days'    => '5 days',
+			'six days'     => '6 days',
+			'a week'       => '1 weeks',
+			'two weeks'    => '2 weeks',
+			'three weeks'  => '3 weeks',
+			'month'        => '1 months',
+			'two months'   => '2 months',
+			'three months' => '3 months',
+			'six months'   => '6 months',
+			'a year'       => '12 months',
 		);
 	}
 
