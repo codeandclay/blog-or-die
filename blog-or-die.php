@@ -150,7 +150,6 @@ class CCBlogOrDie {
 			</form>
 		</div>
 		<?php
-		echo( 'The date was: ' . get_option( 'cc_date_from' ) );
 	}
 
 	public static function interval_view() {
