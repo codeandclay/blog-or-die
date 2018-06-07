@@ -12,11 +12,14 @@ Version: 1.0
 Author URI: www.codeandclay.com
 */
 
+require_once plugin_dir_path( __FILE__ ) . '/class-blogordiefuzzytimeago.php';
+
 class CCBlogOrDie {
 	public static function run() {
 		add_action( 'template_redirect', array( __CLASS__, 'prevent_page_load' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+		add_action( 'admin_notices', array( __CLASS__, 'display_time_info' ) );
 	}
 
 	public static function prevent_page_load() {
@@ -55,6 +58,11 @@ class CCBlogOrDie {
 	/*
 	Back end
 	*/
+
+	public static function display_time_info() {
+		$fuzzy = new BlogOrDieFuzzyTimeAgo( self::time_of_latest_post_in_seconds() );
+		echo '<p>Your last post was published ' . $fuzzy->description() . '.</p>';
+	}
 
 	public static function add_menu() {
 		add_options_page( 'Blog or Die Settings', 'Blog or Die', 'edit_pages', 'blog_or_die_settings', array( __CLASS__, 'render_settings_page' ), false, 62 );
