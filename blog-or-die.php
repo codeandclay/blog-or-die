@@ -71,11 +71,6 @@ class CCBlogOrDie {
 	public static function register_settings() {
 		register_setting( 'cc_blog_or_die', 'cc_interval' );
 		register_setting( 'cc_blog_or_die', 'cc_death_notice' );
-		register_setting(
-			'cc_blog_or_die', 'cc_date_from', array(
-				'sanitize_callback' => array( __CLASS__, 'date_from' ),
-			)
-		);
 	}
 
 	public static function intervals() {
@@ -103,10 +98,6 @@ class CCBlogOrDie {
 			return false;
 		}
 		return explode( $str );
-	}
-
-	public static function date_from( $input ) {
-		return current_time( 'timestamp' );
 	}
 
 	public static function render_settings_page() {
@@ -143,7 +134,6 @@ class CCBlogOrDie {
 					settings_fields( 'cc_blog_or_die' );
 					do_settings_sections( 'blog_or_die_settings' );
 				?>
-				<input type="hidden" name="cc_date_from">
 				<?php
 					submit_button();
 				?>
