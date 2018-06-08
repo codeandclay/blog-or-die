@@ -32,7 +32,7 @@ class CCBlogOrDie {
 	}
 
 	private static function was_last_post_published_after_deadline() {
-		$deadline = strtotime( '+' . get_option( 'cc_interval' ), get_option( 'cc_date_from' ) );
+		$deadline = strtotime( '+' . get_option( 'cc_interval' ), self::time_of_latest_post_in_seconds() );
 		return $deadline - self::time_of_latest_post_in_seconds() < 0;
 	}
 
