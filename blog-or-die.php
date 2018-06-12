@@ -15,6 +15,9 @@ Author URI: www.codeandclay.com
 require_once plugin_dir_path( __FILE__ ) . '/class-blogordiefuzzytimeago.php';
 
 class CCBlogOrDie {
+
+	const DEFAULT_DEATH_NOTICE = 'I have failed to meet my own expectations and I should be ashamed of myself.';
+
 	public static function run() {
 		add_action( 'template_redirect', array( __CLASS__, 'prevent_page_load' ) );
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
@@ -52,7 +55,7 @@ class CCBlogOrDie {
 		if ( get_option( 'cc_death_notice' ) ) {
 			die( '<h1>' . get_option( 'cc_death_notice' ) . '</h1>' );
 		}
-		die( '<h1>This blog is temporarily dead.</h1>' );
+		die( self::DEFAULT_DEATH_NOTICE );
 	}
 
 	/*
@@ -158,7 +161,7 @@ class CCBlogOrDie {
 
 	public static function death_notice_view() {
 		ob_start();
-		$text = 'I have failed to meet my own expectations and I should be ashamed of myself.';
+		$text = self::DEFAULT_DEATH_NOTICE;
 		if ( ! empty( get_option( 'cc_death_notice' ) ) ) {
 			$text = get_option( 'cc_death_notice' );
 		}
