@@ -9,7 +9,7 @@ class BlogOrDieFuzzyTimeAgo {
 		$this->reference_timestamp = $reference_timestamp;
 	}
 
-	public function description() {
+	public function over_rough_period() {
 		$periods        = array_filter( $this->elapsed_periods() );
 		$longest_period = array_slice( $periods, 0, 1 );
 
