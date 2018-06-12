@@ -33,7 +33,7 @@ class BlogOrDieFuzzyTimeAgo {
 	}
 
 	private function elapsed_periods() {
-		$now  = new DateTime();
+		$now  = new DateTime( current_time('mysql') );
 		$then = new DateTime( "@$this->reference_timestamp" );
 
 		$difference = $now->diff( $then )->format( '%y,%a,%h,%i,%s' );
