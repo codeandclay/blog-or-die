@@ -64,7 +64,7 @@ class CCBlogOrDie {
 
 	public static function display_time_info() {
 		$fuzzy = new BlogOrDieFuzzyTimeAgo( self::time_of_latest_post_in_seconds() );
-		echo '<p>Your last post was published ' . $fuzzy->description() . '.</p>';
+		echo '<p>Your last post was published ' . $fuzzy->over_rough_period() . '.</p>';
 	}
 
 	public static function add_menu() {
