@@ -59,7 +59,15 @@ class CCBlogOrDie {
 	}
 
 	private static function death_notice($message) {
-		die( '<h1>' . $message . '</h1>' );
+		die(
+				'<div class="death_notice" style="position : absolute; display: table; width: 100%; height: 100%;">' .
+				'<div style="display: table-cell; vertical-align: middle; text-align: center;">' .
+					 '<p style="text-align: left; font-family: sans-serif; width: 25rem; margin: 0 auto;">' .
+							$message .
+					 '</p>' .
+				'</div>' .
+				'</div>'
+		);
 	}
 
 	/*
