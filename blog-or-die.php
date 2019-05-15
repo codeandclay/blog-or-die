@@ -30,7 +30,7 @@ class CCBlogOrDie {
 			return;
 		}
 		if ( self::was_last_post_published_after_deadline() ) {
-			self::death_notice();
+			self::display_death_notice();
 		}
 	}
 
@@ -51,11 +51,15 @@ class CCBlogOrDie {
 		);
 	}
 
-	private static function death_notice() {
+	private static function display_death_notice() {
 		if ( get_option( 'cc_death_notice' ) ) {
-			die( '<h1>' . get_option( 'cc_death_notice' ) . '</h1>' );
+			self::death_notice( get_option( 'cc_death_notice' ) );
 		}
-		die( self::DEFAULT_DEATH_NOTICE );
+		self::death_notice( self::DEFAULT_DEATH_NOTICE );
+	}
+
+	private static function death_notice($message) {
+		die( '<h1>' . $message . '</h1>' );
 	}
 
 	/*
