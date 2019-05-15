@@ -12,7 +12,7 @@ Version: 1.0
 Author URI: www.codeandclay.com
 */
 
-require_once plugin_dir_path( __FILE__ ) . '/class-blogordiefuzzytimeago.php';
+require_once plugin_dir_path( __FILE__ ) . '/class-blogordiefuzzytime.php';
 
 class CCBlogOrDie {
 
@@ -76,10 +76,10 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
-		$fuzzy = new BlogOrDieFuzzyTimeAgo( self::time_of_latest_post_in_seconds() );
+		$fuzzy = new BlogOrDieFuzzyTime( self::time_of_latest_post_in_seconds() );
 		?>
 			<div class="notice notice-info is-dismissible">
-		    <p><?php echo("Your last post was published " . $fuzzy->over_rough_period()); ?></p>
+		    <p><?php echo("Your last post was published " . $fuzzy->over_rough_period()) ." ago."; ?></p>
 		  </div>
 	  <?php
 	}

@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || die();
 
-class BlogOrDieFuzzyTimeAgo {
+class BlogOrDieFuzzyTime {
 	private $reference_timestamp;
 
 	public function __construct( $reference_timestamp ) {
@@ -18,7 +18,7 @@ class BlogOrDieFuzzyTimeAgo {
 			$longest_period = [ substr( key( $longest_period ), 0, -1 ) => 'a' ];
 		}
 
-		$str = 'over ' . reset( $longest_period ) . ' ' . key( $longest_period ) . ' ago';
+		$str = 'over ' . reset( $longest_period ) . ' ' . key( $longest_period );
 		return str_replace( 'a hour', 'an hour', $str );
 	}
 
