@@ -61,8 +61,8 @@ class FuzzyTimeAgoTest extends WP_UnitTestCase {
 	}
 
 	public function test_over_one_year() {
-		// initialize object with a year and one second
-		$subject = $this->subject( - 31536000 );
+		// initialize object with a year and one day
+		$subject = $this->subject( - 31622400 );
 		$this->assertSame( $subject->over_rough_period(), 'over a year' );
 	}
 
