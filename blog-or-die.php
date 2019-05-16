@@ -79,10 +79,18 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
-		$fuzzy = new BlogOrDieFuzzyTimeAgo(self::deadline());
+        $fuzzy = new BlogOrDieFuzzyTime(self::deadline());
+        self::display_notice_with_message(
+            "You published your last post over " . $fuzzy->rough_period() ." ago. " .
+            "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
+            "or your blog gets it."
+        );
+	}
+
+	public static function display_notice_with_message($message) {
 		?>
 			<div class="notice notice-warning is-dismissible">
-		    <p><?php echo("You have " . $fuzzy->rough_period()) ." left to post or your blog gets it."; ?></p>
+		    <p><strong>Blog or Die: </strong><?php echo($message); ?></p>
 		  </div>
 	  <?php
 	}
