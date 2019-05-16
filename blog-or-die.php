@@ -87,7 +87,7 @@ class CCBlogOrDie {
         } else {
             $message = "You published your last post " . $fuzzy->over_rough_period() ." ago. " .
                        "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
-                       "or your blog gets it.";
+                       "or your blog will be disabled.";
             (new BlogOrDieAdminNoticeWarning($message))->display();
         }
 	}
