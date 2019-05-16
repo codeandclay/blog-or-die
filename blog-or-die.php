@@ -80,11 +80,16 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
-        $message = "You published your last post " . $fuzzy->over_rough_period() ." ago. " .
-                   "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
-                   "or your blog gets it.";
-        (new BlogOrDieAdminNoticeWarning($message))->display();
         $fuzzy = new BlogOrDieFuzzyTime(self::time_of_latest_post_in_seconds());
+        if (self::was_last_post_published_after_deadline()) {
+            $message = "Blog or Die has disabled your blog. You'll need to publish a post to get back going again. ☠️";
+            (new BlogOrDieAdminNoticeError($message))->display();
+        } else {
+            $message = "You published your last post " . $fuzzy->over_rough_period() ." ago. " .
+                       "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
+                       "or your blog gets it.";
+            (new BlogOrDieAdminNoticeWarning($message))->display();
+        }
 	}
 
 	public static function add_menu() {
