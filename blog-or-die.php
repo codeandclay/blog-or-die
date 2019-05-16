@@ -5,11 +5,11 @@
  */
 /*
 Plugin Name: Blog or Die
-Plugin URI: www.codeandclay.com
+Plugin URI: https://usefulplugins.tech
 Description: Publish or your blog gets it.
 Author: Oliver Denman
 Version: 1.0
-Author URI: www.codeandclay.com
+Author URI: www.usefulplugins.tech
 */
 
 require_once plugin_dir_path( __FILE__ ) . '/class-blogordiefuzzytime.php';
