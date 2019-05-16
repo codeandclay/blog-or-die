@@ -86,6 +86,11 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
+        // Don't display a notice if there are no published posts
+        if (wp_count_posts()->publish == 0) {
+            return;
+        }
+
         $fuzzy = new BlogOrDieFuzzyTime(self::time_of_latest_post_in_seconds());
         if (self::was_last_post_published_after_deadline()) {
             $message = "Blog or Die has disabled your blog. You'll need to publish a post to get back going again. ☠️";
