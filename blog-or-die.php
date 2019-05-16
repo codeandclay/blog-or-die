@@ -93,7 +93,7 @@ class CCBlogOrDie {
 
         $fuzzy = new BlogOrDieFuzzyTime(self::time_of_latest_post_in_seconds());
         if (self::was_last_post_published_after_deadline()) {
-            $message = "Blog or Die has disabled your blog. You'll need to publish a post to get back going again. ☠️";
+            $message = "Blog or Die has disabled your blog. You need to publish a post to get back going again. ☠️";
             (new BlogOrDieAdminNoticeError($message))->display();
         } else {
             $message = "You published your last post " . $fuzzy->over_rough_period() ." ago. " .
