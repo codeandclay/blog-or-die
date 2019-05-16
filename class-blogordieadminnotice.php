@@ -13,7 +13,7 @@ class BlogOrDieAdminNoticeBase {
         $type = $this->type();
         ?>
         <div class="notice notice-<?php echo($type) ?> is-dismissible">
-            <p><strong>Blog or Die: </strong><?php echo($this->message); ?></p>
+            <p><?php echo($this->message); ?></p>
         </div>
         <?php
     }
