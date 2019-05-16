@@ -24,7 +24,13 @@ class CCBlogOrDie {
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'display_time_info' ) );
+
+        register_activation_hook( __FILE__, array( __CLASS__, 'set_default_interval' ) );
 	}
+
+    public static function set_default_interval() {
+        update_option( "cc_interval", "7 days" );
+    }
 
 	public static function prevent_page_load() {
 		if ( ! get_posts() ) {
