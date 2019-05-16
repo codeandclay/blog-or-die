@@ -35,8 +35,11 @@ class CCBlogOrDie {
 	}
 
 	private static function was_last_post_published_after_deadline() {
-		$deadline = strtotime( '+' . get_option( 'cc_interval' ), self::time_of_latest_post_in_seconds() );
-		return $deadline - current_time('timestamp') < 0;
+		return self::deadline() - current_time('timestamp') < 0;
+	}
+
+	private static function deadline() {
+		return strtotime( '+' . get_option( 'cc_interval' ), self::time_of_latest_post_in_seconds() );
 	}
 
 	private static function time_of_latest_post_in_seconds() {
@@ -76,10 +79,10 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
-		$fuzzy = new BlogOrDieFuzzyTime( self::time_of_latest_post_in_seconds() );
+		$fuzzy = new BlogOrDieFuzzyTimeAgo(self::deadline());
 		?>
-			<div class="notice notice-info is-dismissible">
-		    <p><?php echo("Your last post was published " . $fuzzy->over_rough_period()) ." ago."; ?></p>
+			<div class="notice notice-warning is-dismissible">
+		    <p><?php echo("You have " . $fuzzy->rough_period()) ." left to post or your blog gets it."; ?></p>
 		  </div>
 	  <?php
 	}
