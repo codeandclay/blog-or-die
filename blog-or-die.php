@@ -80,11 +80,11 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
-        $fuzzy = new BlogOrDieFuzzyTime(self::deadline());
         $message = "You published your last post " . $fuzzy->over_rough_period() ." ago. " .
                    "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
                    "or your blog gets it.";
         (new BlogOrDieAdminNoticeWarning($message))->display();
+        $fuzzy = new BlogOrDieFuzzyTime(self::time_of_latest_post_in_seconds());
 	}
 
 	public static function add_menu() {
