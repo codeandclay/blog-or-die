@@ -13,6 +13,7 @@ Author URI: www.codeandclay.com
 */
 
 require_once plugin_dir_path( __FILE__ ) . '/class-blogordiefuzzytime.php';
+require_once plugin_dir_path( __FILE__ ) . '/class-blogordieadminnotice.php';
 
 class CCBlogOrDie {
 
@@ -80,19 +81,10 @@ class CCBlogOrDie {
 
 	public static function display_time_info() {
         $fuzzy = new BlogOrDieFuzzyTime(self::deadline());
-        self::display_notice_with_message(
-            "You published your last post over " . $fuzzy->rough_period() ." ago. " .
-            "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
-            "or your blog gets it."
-        );
-	}
-
-	public static function display_notice_with_message($message) {
-		?>
-			<div class="notice notice-warning is-dismissible">
-		    <p><strong>Blog or Die: </strong><?php echo($message); ?></p>
-		  </div>
-	  <?php
+        $message = "You published your last post " . $fuzzy->over_rough_period() ." ago. " .
+                   "You have until " . date_i18n( "F j, Y g:i", self::deadline()) . " to publish a new post " .
+                   "or your blog gets it.";
+        (new BlogOrDieAdminNoticeWarning($message))->display();
 	}
 
 	public static function add_menu() {
