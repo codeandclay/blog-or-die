@@ -33,6 +33,7 @@ class CCBlogOrDie {
     }
 
 	public static function prevent_page_load() {
+        // Bail out if there are no published posts
 		if ( ! get_posts() ) {
 			return;
 		}
@@ -86,8 +87,8 @@ class CCBlogOrDie {
 	*/
 
 	public static function display_time_info() {
-        // Don't display a notice if there are no published posts
-        if (wp_count_posts()->publish == 0) {
+        // Bail out if there are no published post
+        if ( ! get_posts() ) {
             return;
         }
 
