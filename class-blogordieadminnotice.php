@@ -43,5 +43,3 @@ class BlogOrDieAdminNoticeError extends BlogOrDieAdminNoticeBase {
         return 'error';
     }
 }
-
-?>
